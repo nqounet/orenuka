@@ -7,7 +7,7 @@ use Data::Dumper;
 
 get '/' => sub {
   my $self = shift;
-  my $nukadoko = lookin('./nukadoko.yaml');
+  my $nukadoko = Nukadoko::lookin('./nukadoko.yaml');
   $self->stash(entries => $nukadoko);
   $self->render('index');
 };
@@ -16,7 +16,7 @@ post '/pickle' => sub {
   my $self = shift;
   my @params = $self->param;
   if ($params[0] =~ /^(.+)\.x$/){
-    pickle('./nukadoko.yaml',$1)
+    Nukadoko::pickle('./nukadoko.yaml',$1)
   }
   $self->redirect_to('/');
 };
@@ -24,9 +24,9 @@ post '/pickle' => sub {
 post '/takeout' => sub {
   my $self = shift;
   my @params = $self->param('nukadoko');
-  my $old_nukadoko = lookin('./nukadoko.yaml');
+  my $old_nukadoko = Nukadoko::lookin('./nukadoko.yaml');
   splice @$old_nukadoko, $params[0], 1;
-  takeout('./nukadoko.yaml', $old_nukadoko);
+  Nukadoko::takeout('./nukadoko.yaml', $old_nukadoko);
   $self->redirect_to('/');
 };
 

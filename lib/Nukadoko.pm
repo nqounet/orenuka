@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+package Nukadoko;
 
 use strict;
 use warnings;
